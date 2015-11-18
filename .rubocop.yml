@@ -1,0 +1,21 @@
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+
+# Allow 120 character line lengths
+LineLength:
+  Max: 100
+
+# Allow tabbed alignment of method args
+SingleSpaceBeforeFirstArg:
+  Enabled: false
+
+# Don't require top-level documenation
+Documentation:
+  Enabled: false
+
+Style/AndOr:
+  EnforcedStyle: conditionals
+
+Metrics/MethodLength:
+  Max: 20
