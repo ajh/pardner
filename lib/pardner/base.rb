@@ -121,10 +121,6 @@ module Pardner
         if super && __getobj__.valid?
           true
         else
-          __getobj__.errors.each do |attr, msg|
-            errors.add attr, msg
-          end
-
           false
         end
       end
@@ -135,7 +131,11 @@ module Pardner
     end
 
     def new_record?
-      !persisted?
+      decorated_record.new_record?
+    end
+
+    def errors(*args, &block)
+      decorated_record.errors(*args, &block)
     end
   end
 end

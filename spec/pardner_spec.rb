@@ -347,12 +347,12 @@ RSpec.describe Pardner::Base do
 
   describe "#persisted?" do
     context "when decorated record is persisted" do
-      before { allow(balloon).to receive(:persisted?).and_return true }
+      before { allow(balloon).to receive_messages persisted?: true, new_record?: false }
       it { is_expected.to be_persisted }
       it { is_expected.to_not be_new_record }
     end
     context "when decorated record is not persisted" do
-      before { allow(balloon).to receive(:persisted?).and_return false }
+      before { allow(balloon).to receive_messages persisted?: false, new_record?: true }
       it { is_expected.to_not be_persisted }
       it { is_expected.to be_new_record }
     end
