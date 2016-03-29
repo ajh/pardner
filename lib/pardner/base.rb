@@ -87,8 +87,11 @@ module Pardner
     def save
       valid? or return false
 
-      status = ActiveRecord::Base.transaction do
-        run_callbacks(:save) { super }
+      status = nil
+
+      ActiveRecord::Base.transaction do
+        status = run_callbacks(:save) { super }
+        status or raise ActiveRecord::Rollback
       end
 
       status == true

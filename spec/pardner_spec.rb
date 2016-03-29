@@ -221,6 +221,22 @@ RSpec.describe Pardner::Base do
         expect { subject.save rescue nil }.to_not change(Balloon, :count)
       end
     end
+
+    context 'when decorated record does not return true' do
+      before do
+        BalloonDecorator.class_eval do
+          before_save { Balloon.create! }
+        end
+
+        Balloon.class_eval do
+          def save; false; end
+        end
+      end
+
+      it "rolls back the transaction" do
+        expect { subject.save }.to_not change(Balloon, :count)
+      end
+    end
   end
 
   context '#modal_name' do
